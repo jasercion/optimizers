@@ -7,7 +7,7 @@ def generate(env, **kw):
     env.Tool('addLibrary', library = env['cfitsioLibs'])
     env.Tool('addLibrary', library = env['clhepLibs'])
     if env.get('CONTAINERNAME', '') == 'ScienceTools_User':
-        env.Tool('addLibrary', library = env['minuit2libs'])
+        env.Tool('addLibrary', library = env['minuit2Libs'])
     else:
         env.Tool('addLibrary', library = env['rootLibs'])
         env.Tool('addLibrary', library = env['rootGuiLibs'])
