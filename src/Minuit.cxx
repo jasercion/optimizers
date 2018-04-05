@@ -73,7 +73,7 @@ namespace optimizers {
     std::cout << "Setting verbosity..." << std::endl;
     pline << "SET PRI " << minuitVerbose;
     doCmd(pline.str()); // Set verbosity of Minuit
-    set::cout << "Verbosity set.  Setting No-Warning mode..." << std::endl;
+    std::cout << "Verbosity set.  Setting No-Warning mode..." << std::endl;
     doCmd("SET NOW");
 
     // Tell Minuit about parameter values, names, bounds, etc.
