@@ -137,8 +137,10 @@ extern "C" {
   //! Set I/O unit numbers
   void mintio_(const integer * iread, const integer * iwrite, const integer * isave);
   //! Get current value of a parameter
-  void mnpout_(integer * num, char * chnam, double * val, double * error, 
-	       double * bnd1, double * bnd2, integer * ivarbl, ftnlen strln);
+  //void mnpout_(integer * num, char * chnam, double * val, double * error, 
+  //	       double * bnd1, double * bnd2, integer * ivarbl, ftnlen strln);
+    void mnpout_(integer * num, char * chnam, double * val, double * error, 
+  	       double * bnd1, double * bnd2, integer * ivarbl);
   //! Get current status of minimization
   void mnstat_(double * fmin, double * fedm, double * errdef, integer * npari, 
 	       integer * nparx, integer * istat);
