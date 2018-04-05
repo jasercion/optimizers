@@ -126,6 +126,7 @@ namespace optimizers {
       std::cout << "Param extraction Minuit call..." << std::endl;
       mnpout_(&j, &pname[0], &pval, &error, &bnd1, &bnd2, &ivarbl, 
 	      pname.size());
+      std::cout << "Call Sucessfull!" << std::endl;
       p->setValue(pval);
       if (verbose != 0) {
 	std::cout << "  " << std::string(pname.begin(), pname.end()) 
