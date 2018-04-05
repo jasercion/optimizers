@@ -104,9 +104,10 @@ namespace optimizers {
       tolerance = 2000. * tol * fabs(m_stat->value());
     }
     std::ostringstream mline;
+    std::cout << "Minimizing!" << std::endl;
     mline << "MINI " << m_maxEval << " " << tolerance << std::endl;
     int retCode = doCmd(mline.str());  // Minimize fcn
-
+    std::cout << "Minimization complete!" << std::endl;
     // Move this below the extraction of the fitted parameters into m_stat.
     // // Improve the quality of the Hessian matrix.
     // if (doHesse) {
