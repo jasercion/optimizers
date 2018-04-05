@@ -104,7 +104,7 @@ namespace optimizers {
       tolerance = 2000. * tol * fabs(m_stat->value());
     }
     std::ostringstream mline;
-    mline << "MINIMIZE " << m_maxEval << " " << tolerance << std::endl;
+    mline << "MINI " << m_maxEval << " " << tolerance << std::endl;
     int retCode = doCmd(mline.str());  // Minimize fcn
 
     // Move this below the extraction of the fitted parameters into m_stat.
@@ -140,7 +140,7 @@ namespace optimizers {
 
     // Improve the quality of the Hessian matrix.
     if (doHesse) {
-       doCmd("HESSE");
+       doCmd("HES");
        m_stat->setFreeParamValues(paramValues);
     }
 
@@ -211,7 +211,7 @@ namespace optimizers {
       doCmd("SET NOG"); 
     }
     std::ostringstream mcmd;
-    mcmd << "MINOS " << m_maxEval << " " << n;
+    mcmd << "MINO " << m_maxEval << " " << n;
     numPars = npar;
     int retCode = doCmd(mcmd.str());
     double eplus, eminus, eparab, globcc;
