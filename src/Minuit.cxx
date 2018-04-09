@@ -70,10 +70,8 @@ namespace optimizers {
       mintio_(&i5, &i6, &i7);
     }
     std::ostringstream pline;
-    std::cout << "Setting verbosity..." << std::endl;
     pline << "SET PRI " << minuitVerbose;
     doCmd(pline.str()); // Set verbosity of Minuit
-    set::cout << "Verbosity set.  Setting No-Warning mode..." << std::endl;
     doCmd("SET NOW");
 
     // Tell Minuit about parameter values, names, bounds, etc.
@@ -86,15 +84,12 @@ namespace optimizers {
       mnparm_(&j, p->getName().c_str(), &value, &scale, 
 	      &lowerBound, &upperBound, &errorFlag, p->getName().size());
     }
-    std::cout << "Setting error..." << std::endl;
+
     doCmd("SET ERR 0.5");  // Delta value = 1/2: correct for likelihood
-    std::cout << "Error set!  Setting grad flag..." << std::endl;
     if ( getNumericDerivFlag() ) {
       doCmd("SET NOG"); 
-      std::cout << "Grad Flag set!" << std::endl;
     } else {
       doCmd("SET GRA 1");  // Use gradient calculated by fcn
-      std::cout << "Grad Flag set!" << std::endl;
     }
     
     double tolerance = 0.;
