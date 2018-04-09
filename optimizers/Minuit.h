@@ -9,7 +9,6 @@
 #define optimizers_MINUIT_H
 
 #include "optimizers/Optimizer.h"
-#include "root/TMinuit.h"
 #include "optimizers/Statistic.h"
 #include "optimizers/f2c_types.h"
 
@@ -121,42 +120,42 @@ namespace optimizers {
 // The Fortran subroutines which make up the Minuit API
 //extern "C" {
   //! Initialize Minuit with I/O unit numbers for in, out, save
-  void TMinuit::mninit(const integer*, const integer*, const integer*);
+  void Minuit::mninit(const integer*, const integer*, const integer*);
   //! Define a parameter, assigning values and bounds
-  void TMinuit::mnparm(integer *  num, const char * chnam, double * stval, 
+  void Minuit::mnparm(integer *  num, const char * chnam, double * stval, 
 	        double * step,  double * bnd1 , 
 	        double * bnd2, integer * ierror, ftnlen stringlen);
   //! Prototype of the function to be minimized.
   typedef void (mfcn)(integer * npar, double * grad, double * fval, 
 		      double * xval, integer * iflag, void * futil);
   //! Execute a Minuit command specified as a character string
-  void TMinuit::mncomd(mfcn * fcn, const char * chstr, integer * ierr, void * futil, 
+  void Minuit::mncomd(mfcn * fcn, const char * chstr, integer * ierr, void * futil, 
 	       ftnlen stringlen);
   //! Execute a Minuit command
-  void TMinuit::mnexcm(mfcn * fcn, char * chcom, double * arglis, integer * narg, 
+  void Minuit::mnexcm(mfcn * fcn, char * chcom, double * arglis, integer * narg, 
 	       integer * ierflg, void * futil, ftnlen strln);
   //! Set I/O unit numbers
-  void TMinuit::mintio(const integer * iread, const integer * iwrite, const integer * isave);
+  void Minuit::mintio(const integer * iread, const integer * iwrite, const integer * isave);
   //! Get current value of a parameter
-  void TMinuit::mnpout(integer * num, char * chnam, double * val, double * error, 
+  void Minuit::mnpout(integer * num, char * chnam, double * val, double * error, 
   	       double * bnd1, double * bnd2, integer * ivarbl, ftnlen strln);
   //! Get current status of minimization
-  void TMinuit::mnstat(double * fmin, double * fedm, double * errdef, integer * npari, 
+  void Minuit::mnstat(double * fmin, double * fedm, double * errdef, integer * npari, 
 	       integer * nparx, integer * istat);
   //! Specify a title for a problem
-  void TMinuit::mnseti(char * ctitle, ftnlen strln);
+  void Minuit::mnseti(char * ctitle, ftnlen strln);
   //! Define a parameter, assigning values and bounds from variables
-  void TMinuit::mnpars(char * chstr, integer * icondn, ftnlen strln);
+  void Minuit::mnpars(char * chstr, integer * icondn, ftnlen strln);
   //! Get current value of covariance matrix
-  void TMinuit::mnemat(double * emat, integer * ndim);
+  void Minuit::mnemat(double * emat, integer * ndim);
   //! Access current parameter errors
-  void TMinuit::mnerrs(integer * num, double * eplus, double * eminus, double * eparab, 
+  void Minuit::mnerrs(integer * num, double * eplus, double * eminus, double * eparab, 
 	       double * globcc);
   //! Find a function contour with the MNContour method
-  void TMinuit::mncont(mfcn * fcn, integer * num1, integer * num2, integer * npt, double * xpt, 
+  void Minuit::mncont(mfcn * fcn, integer * num1, integer * num2, integer * npt, double * xpt, 
 	       double * ypt, integer * nfound, void * futil);
   //! Utility function used by Minuit: interactive or batch mode
-  logical TMinuit::intrac_(double *);
+  logical Minuit::intrac_(double *);
 //}
 #endif // SWIG
 
