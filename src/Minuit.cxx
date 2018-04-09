@@ -8,8 +8,8 @@
 
 #include <sstream>
 #include "optimizers/dArg.h"
-//#include "optimizers/Minuit.h"
-#include "root/TMinuit.h"
+#include "optimizers/Minuit.h"
+//#include "root/TMinuit.h"
 #include "optimizers/Parameter.h"
 #include "optimizers/Exception.h"
 #include "optimizers/OutOfBounds.h"
@@ -21,43 +21,43 @@ namespace {
 namespace optimizers {
 
 
-  TMinuit::Minuit(Statistic& stat) : Optimizer(stat) {
+  Minuit::Minuit(Statistic& stat) : Optimizer(stat) {
     const integer i5=5, i6=6, i7=7;
     //mninit_(&i5, &i6, &i7);
     mninit(&i5, &i6, &i7);
   }
 
-  int TMinuit::getQuality(void) const {
+  int Minuit::getQuality(void) const {
     return m_quality;
   }
 
-  double TMinuit::getDistance(void) const {
+  double Minuit::getDistance(void) const {
     return m_distance;
   }
 
-  void TMinuit::setStrategy(unsigned int strat) {
+  void Minuit::setStrategy(unsigned int strat) {
      m_strategy_value = strat;
       std::ostringstream s_strategy;
       s_strategy << "SET STR " << strat;
       doCmd(s_strategy.str());
   }
 
-  const std::vector<double> & TMinuit::getUncertainty(bool useBase) {
+  const std::vector<double> & Minuit::getUncertainty(bool useBase) {
      if (useBase) {
         Optimizer::getUncertainty(useBase);
      }
      return m_uncertainty;
   }
 
-  int TMinuit::find_min(int verbose, double tol, int tolType) {
+  int Minuit::find_min(int verbose, double tol, int tolType) {
     return minimize(verbose, tol, tolType, true);
   }
 
-  int TMinuit::find_min_only(int verbose, double tol, int tolType) {
+  int Minuit::find_min_only(int verbose, double tol, int tolType) {
     return minimize(verbose, tol, tolType, false);
   }
 
-  int TMinuit::minimize(int verbose, double tol, int tolType, bool doHesse) {
+  int Minuit::minimize(int verbose, double tol, int tolType, bool doHesse) {
 
     typedef std::vector<Parameter>::iterator pptr;
 
@@ -202,7 +202,7 @@ namespace optimizers {
     return getRetCode();
   } // End of minimize 
 
-  std::pair<double,double> TMinuit::Minos(unsigned int n, double level, bool numericDeriv) {
+  std::pair<double,double> Minuit::Minos(unsigned int n, double level, bool numericDeriv) {
     std::vector<double> parValues;
     m_stat->getFreeParamValues(parValues);
     integer npar(m_stat->getNumFreeParams());
@@ -273,7 +273,7 @@ namespace optimizers {
     return std::pair<double,double>(eminus,eplus);
   }
 
-  void TMinuit::MnContour(unsigned int par1, unsigned int par2,
+  void Minuit::MnContour(unsigned int par1, unsigned int par2,
 			    double level, unsigned int npts) {
     std::vector<double> parValues;
     m_stat->getFreeParamValues(parValues);
@@ -304,7 +304,7 @@ namespace optimizers {
     return;
   }
 
-  int TMinuit::doCmd(std::string command, bool set_npar) {
+  int Minuit::doCmd(std::string command, bool set_npar) {
     // Pass a command string to Minuit
     integer errorFlag = 0;
     
@@ -349,7 +349,7 @@ namespace optimizers {
     }
   }    
 
-   std::vector< std::vector<double> > TMinuit::covarianceMatrix() const {
+   std::vector< std::vector<double> > Minuit::covarianceMatrix() const {
       std::vector<double> parValues;
       m_stat->getFreeParamValues(parValues);
       integer npar(m_stat->getNumFreeParams());
@@ -369,7 +369,7 @@ namespace optimizers {
       return matrix;
    }
 
-  std::ostream& TMinuit::put (std::ostream& s) const {
+  std::ostream& Minuit::put (std::ostream& s) const {
     s << "MINUIT returned a value of " << m_val << std::endl;
     s << "and an estimated distance of " << m_distance << std::endl;
     return s;
