@@ -121,8 +121,7 @@ namespace optimizers {
 // The Fortran subroutines which make up the Minuit API
 //extern "C" {
   //! Initialize Minuit with I/O unit numbers for in, out, save
-  //void TMinuit::mninit(const integer*, const integer*, const integer*);
-  void TMinuit::mninit(int_t, int_t, int_t);
+  void TMinuit::mninit(const integer*, const integer*, const integer*);
   //! Define a parameter, assigning values and bounds
   void TMinuit::mnparm(integer *  num, const char * chnam, double * stval, 
 	        double * step,  double * bnd1 , 
