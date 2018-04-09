@@ -42,7 +42,7 @@ namespace optimizers {
       doCmd(s_strategy.str());
   }
 
-  const std::vector<double> & Minuit::getUncertainty(bool useBase) {
+  const std::vector<double> & TMinuit::getUncertainty(bool useBase) {
      if (useBase) {
         Optimizer::getUncertainty(useBase);
      }
