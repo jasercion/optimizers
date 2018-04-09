@@ -202,7 +202,7 @@ namespace optimizers {
     return getRetCode();
   } // End of minimize 
 
-  std::pair<double,double> Minuit::Minos(unsigned int n, double level, bool numericDeriv) {
+  std::pair<double,double> TMinuit::Minos(unsigned int n, double level, bool numericDeriv) {
     std::vector<double> parValues;
     m_stat->getFreeParamValues(parValues);
     integer npar(m_stat->getNumFreeParams());
