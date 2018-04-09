@@ -36,7 +36,7 @@ namespace optimizers {
   void Minuit::setStrategy(unsigned int strat) {
      m_strategy_value = strat;
       std::ostringstream s_strategy;
-      s_strategy << "SET STR " << strat;
+      s_strategy << "SET STRATEGY " << strat;
       doCmd(s_strategy.str());
   }
 
@@ -70,9 +70,9 @@ namespace optimizers {
       mintio_(&i5, &i6, &i7);
     }
     std::ostringstream pline;
-    pline << "SET PRI " << minuitVerbose;
+    pline << "SET PRINT " << minuitVerbose;
     doCmd(pline.str()); // Set verbosity of Minuit
-    doCmd("SET NOW");
+    doCmd("SET NOWARN");
 
     // Tell Minuit about parameter values, names, bounds, etc.
     for (pptr p = params.begin(); p != params.end(); p++) {
@@ -87,9 +87,9 @@ namespace optimizers {
 
     doCmd("SET ERR 0.5");  // Delta value = 1/2: correct for likelihood
     if ( getNumericDerivFlag() ) {
-      doCmd("SET NOG"); 
+      doCmd("SET NOGRAD"); 
     } else {
-      doCmd("SET GRA 1");  // Use gradient calculated by fcn
+      doCmd("SET GRAD 1");  // Use gradient calculated by fcn
     }
     
     double tolerance = 0.;
@@ -203,7 +203,7 @@ namespace optimizers {
     }
     
     if ( getNumericDerivFlag() ||  numericDeriv) {
-      doCmd("SET NOG"); 
+      doCmd("SET NOGRAD"); 
     }
     std::ostringstream mcmd;
     mcmd << "MINOS " << m_maxEval << " " << n;
@@ -227,7 +227,7 @@ namespace optimizers {
     }
     if ( getNumericDerivFlag() ||  numericDeriv) {
       //Turn the numeric derivs back off
-      doCmd("SET GRA 1"); 
+      doCmd("SET GRAD 1"); 
     }
     m_stat->setFreeParamValues(parValues);
 
