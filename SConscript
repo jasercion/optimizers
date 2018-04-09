@@ -13,8 +13,9 @@ if baseEnv['PLATFORM'] == "posix":
 
 libEnv.Tool('addLinkDeps', package='optimizers', toBuild='shared')
 
-optimizersLib = libEnv.SharedLibrary('optimizers',
-                                     listFiles(['src/*.cxx', 'src/*.c']))
+#optimizersLib = libEnv.SharedLibrary('optimizers',
+#                                     listFiles(['src/*.cxx', 'src/*.c']))
+optimizersLib = libEnv.SharedLibrary('optimizers', listFiles(['src/*.cxx'])
 
 progEnv.Tool('optimizersLib')
 if baseEnv['PLATFORM'] == "posix":
