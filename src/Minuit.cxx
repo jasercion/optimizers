@@ -123,7 +123,6 @@ namespace optimizers {
       double pval, error, bnd1, bnd2;
       integer ivarbl;
       integer j = p - params.begin() + 1;
-      std::cout << "Param extraction Minuit call..." << std::endl;
       mnpout_(&j, &pname[0], &pval, &error, &bnd1, &bnd2, &ivarbl, 
 	      pname.size());
       p->setValue(pval);
@@ -132,7 +131,6 @@ namespace optimizers {
 		  << " = " << pval << std::endl;
       }
     }
-    std::cout << "Fitted Parameters extracted!" << std::endl;
 
     // Put new parameter values back into the Statistic
     std::vector<double> paramValues;
@@ -143,18 +141,14 @@ namespace optimizers {
 
     // Improve the quality of the Hessian matrix.
     if (doHesse) {
-       std::cout << "Doing the Hesse!" << std::endl;
        doCmd("HES");
-       std::cout << "Hesse done!" << std::endl;
        m_stat->setFreeParamValues(paramValues);
     }
 
     // Get information about quality of minimization
     integer nVariable, nparx, minStat;
     double fmin, vertDist, errDef;
-    std::cout << "Stat extraction..." << std::endl;
     mnstat_(&fmin, &vertDist, &errDef, &nVariable, &nparx, &minStat);
-    std::cout << "Complete!" << std::endl;
     m_stat->setFreeParamValues(paramValues);
     m_val = fmin;
     m_quality = minStat;
