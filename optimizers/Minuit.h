@@ -123,7 +123,7 @@ namespace optimizers {
 //extern "C" {
   //! Initialize Minuit with I/O unit numbers for in, out, save
   //void Minuit::mninit(const integer*, const integer*, const integer*);
-  void TMinuit::mninit(TDataType::int_t, TDataType::int_t, TDataType::int_t);
+  void TMinuit::mninit(TDataType::Int_t, TDataType::Int_t, TDataType::Int_t);
   //! Define a parameter, assigning values and bounds
   void Minuit::mnparm(integer *  num, const char * chnam, double * stval, 
 	        double * step,  double * bnd1 , 
