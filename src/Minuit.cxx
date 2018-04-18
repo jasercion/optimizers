@@ -9,7 +9,6 @@
 #include <sstream>
 #include "optimizers/dArg.h"
 #include "optimizers/Minuit.h"
-//#include "root/TMinuit.h"
 #include "optimizers/Parameter.h"
 #include "optimizers/Exception.h"
 #include "optimizers/OutOfBounds.h"
@@ -23,8 +22,7 @@ namespace optimizers {
 
   Minuit::Minuit(Statistic& stat) : Optimizer(stat) {
     const integer i5=5, i6=6, i7=7;
-    //mninit_(&i5, &i6, &i7);
-    mninit(&i5, &i6, &i7);
+    mninit_(&i5, &i6, &i7);
   }
 
   int Minuit::getQuality(void) const {
@@ -83,9 +81,7 @@ namespace optimizers {
       double lowerBound = p->getBounds().first;
       double upperBound = p->getBounds().second;
       integer j = p - params.begin() + 1;
-      //mnparm_(&j, p->getName().c_str(), &value, &scale, 
-      //      &lowerBound, &upperBound, &errorFlag, p->getName().size());
-      mnparm(&j, p->getName().c_str(), &value, &scale,
+      mnparm_(&j, p->getName().c_str(), &value, &scale, 
 	      &lowerBound, &upperBound, &errorFlag, p->getName().size());
     }
 
@@ -121,10 +117,7 @@ namespace optimizers {
       double pval, error, bnd1, bnd2;
       integer ivarbl;
       integer j = p - params.begin() + 1;
-      std::cout << "Param extraction Minuit call..." << std::endl;
-      //mnpout_(&j, &pname[0], &pval, &error, &bnd1, &bnd2, &ivarbl, 
-      //      pname.size());
-      mnpout(&j, &pname[0], &pval, &error, &bnd1, &bnd2, &ivarbl,
+      mnpout_(&j, &pname[0], &pval, &error, &bnd1, &bnd2, &ivarbl, 
 	      pname.size());
       p->setValue(pval);
       if (verbose != 0) {
@@ -149,10 +142,7 @@ namespace optimizers {
     // Get information about quality of minimization
     integer nVariable, nparx, minStat;
     double fmin, vertDist, errDef;
-    std::cout << "Stat extraction..." << std::endl;
-  //mnstat_(&fmin, &vertDist, &errDef, &nVariable, &nparx, &minStat);
-    mnstat(&fmin, &vertDist, &errDef, &nVariable, &nparx, &minStat); 
-    std::cout << "Complete!" << std::endl;
+    mnstat_(&fmin, &vertDist, &errDef, &nVariable, &nparx, &minStat);
     m_stat->setFreeParamValues(paramValues);
     m_val = fmin;
     m_quality = minStat;
@@ -169,8 +159,7 @@ namespace optimizers {
     m_uncertainty.clear();
     for (integer i = 1; i <= nVariable; i++) {
       double ePlus, eMinus, eParab, globCC;
-      //mnerrs_(&i, &ePlus, &eMinus, &eParab, &globCC);
-      mnerrs(&i, &ePlus, &eMinus, &eParab, &globCC);
+      mnerrs_(&i, &ePlus, &eMinus, &eParab, &globCC);
       m_uncertainty.push_back(eParab);  // Not using MINOS, so this is it.
       if (verbose != 0) {
 	std::cout << "  " << i << "  " << eParab << std::endl;
@@ -222,13 +211,13 @@ namespace optimizers {
     int retCode = doCmd(mcmd.str());
     double eplus, eminus, eparab, globcc;
     integer my_n = n;
-    //mnerrs_(&my_n, &eplus, &eminus, &eparab, &globcc);
-    mnerrs(&my_n, &eplus, &eminus, &eparab, &globcc);
+    mnerrs_(&my_n, &eplus, &eminus, &eparab, &globcc);
+
     char chname[30];
     double val, err, bnd1, bnd2;
     int ivarbl;
-    //mnpout_(&my_n,chname, &val, &err, &bnd1, &bnd2, &ivarbl, 30);
-    mnpout(&my_n,chname, &val, &err, &bnd1, &bnd2, &ivarbl, 30);
+    mnpout_(&my_n,chname, &val, &err, &bnd1, &bnd2, &ivarbl, 30);
+  
     setRetCode(retCode);    // 
 
     numPars = 0;
@@ -305,9 +294,7 @@ namespace optimizers {
     }
 
     void * statistic = static_cast<void *>(m_stat);    
-    //mncomd_(&fcn, command.c_str(), &errorFlag, statistic,
-	    //command.length());
-    mncomd(&fcn, command.c_str(), &errorFlag, statistic,
+    mncomd_(&fcn, command.c_str(), &errorFlag, statistic,
 	    command.length());
     return errorFlag;
   }
@@ -344,8 +331,7 @@ namespace optimizers {
       m_stat->getFreeParamValues(parValues);
       integer npar(m_stat->getNumFreeParams());
       std::vector<double> entries(npar*npar);
-      //mnemat_(&entries[0], &npar);
-      mnemat(&entries[0], &npar);
+      mnemat_(&entries[0], &npar);
       size_t indx(0);
       std::vector< std::vector<double> > matrix;
       for (int i(0); i < npar; i++) {
