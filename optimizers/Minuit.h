@@ -8,8 +8,6 @@
 #ifndef optimizers_MINUIT_H
 #define optimizers_MINUIT_H
 
-#include "root/TDataType.h"
-#include "root/TMinuit.h"
 #include "optimizers/Optimizer.h"
 #include "optimizers/Statistic.h"
 #include "optimizers/f2c_types.h"
@@ -122,8 +120,7 @@ namespace optimizers {
 // The Fortran subroutines which make up the Minuit API
 //extern "C" {
   //! Initialize Minuit with I/O unit numbers for in, out, save
-  //void Minuit::mninit(const integer*, const integer*, const integer*);
-  void TMinuit::mninit(int_t, int_t, int_t);
+  void Minuit::mninit(const integer*, const integer*, const integer*);
   //! Define a parameter, assigning values and bounds
   void Minuit::mnparm(integer *  num, const char * chnam, double * stval, 
 	        double * step,  double * bnd1 , 
