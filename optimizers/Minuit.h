@@ -8,7 +8,8 @@
 #ifndef optimizers_MINUIT_H
 #define optimizers_MINUIT_H
 
-#include "root/Rtypes.h"
+#include "root/TDataType.h"
+#include "root/TDictionary.h"
 #include "root/TMinuit.h"
 #include "optimizers/Optimizer.h"
 #include "optimizers/Statistic.h"
@@ -123,7 +124,7 @@ namespace optimizers {
 //extern "C" {
   //! Initialize Minuit with I/O unit numbers for in, out, save
   //void Minuit::mninit(const integer*, const integer*, const integer*);
-  void TMinuit::mninit(Rtypes::Int_t, Rtypes::Int_t, Rtypes::Int_t);
+  void TMinuit::mninit(TDictionary::Int_t, TDictionary::Int_t, TDictionary::Int_t);
   //! Define a parameter, assigning values and bounds
   void Minuit::mnparm(integer *  num, const char * chnam, double * stval, 
 	        double * step,  double * bnd1 , 
