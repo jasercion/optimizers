@@ -8,6 +8,8 @@
 #ifndef optimizers_MINUIT_H
 #define optimizers_MINUIT_H
 
+#include "root/Rtypes.h"
+#include "root/TMinuit.h"
 #include "optimizers/Optimizer.h"
 #include "optimizers/Statistic.h"
 #include "optimizers/f2c_types.h"
@@ -118,45 +120,64 @@ namespace optimizers {
 
 #ifndef SWIG
 // The Fortran subroutines which make up the Minuit API
-extern "C" {
+//extern "C" {
   //! Initialize Minuit with I/O unit numbers for in, out, save
-  void mninit_(const integer*, const integer*, const integer*);
+  //void Minuit::mninit(const integer*, const integer*, const integer*);
+  void TMinuit::mninit(Int_t, Int_t, Int_t);
   //! Define a parameter, assigning values and bounds
-  void mnparm_(integer *  num, const char * chnam, double * stval, 
-	        double * step,  double * bnd1 , 
-	        double * bnd2, integer * ierror, ftnlen stringlen);
+  //void Minuit::mnparm(integer *  num, const char * chnam, double * stval, 
+  //	        double * step,  double * bnd1 , 
+  //	        double * bnd2, integer * ierror, ftnlen stringlen);
+    void TMinuit::mnparm(Int_t  num, TString chnam, Double_t stval, 
+  	        Double_t step,  Double_t bnd1 , 
+  	        Double_t bnd2, Int_t& ierror);
   //! Prototype of the function to be minimized.
   typedef void (mfcn)(integer * npar, double * grad, double * fval, 
 		      double * xval, integer * iflag, void * futil);
   //! Execute a Minuit command specified as a character string
-  void mncomd_(mfcn * fcn, const char * chstr, integer * ierr, void * futil, 
-	       ftnlen stringlen);
+  //void Minuit::mncomd(mfcn * fcn, const char * chstr, integer * ierr, void * futil, 
+  //	       ftnlen stringlen);
+  void TMinuit::mncomd(const char * chstr, Int_t& ierr);
   //! Execute a Minuit command
-  void mnexcm_(mfcn * fcn, char * chcom, double * arglis, integer * narg, 
-	       integer * ierflg, void * futil, ftnlen strln);
+  //void Minuit::mnexcm(mfcn * fcn, char * chcom, double * arglis, integer * narg, 
+  //	       integer * ierflg, void * futil, ftnlen strln);
+  void TMinuit::mnexcm(const char * chcom, Double_t * arglis, Int_t narg, 
+	       Int_t& ierflg);
   //! Set I/O unit numbers
-  void mintio_(const integer * iread, const integer * iwrite, const integer * isave);
+  //void Minuit::mintio(const integer * iread, const integer * iwrite, const integer * isave);
+  //void Minuit::mintio(const integer * iread, const integer * iwrite, const integer * isave);
   //! Get current value of a parameter
-  void mnpout_(integer * num, char * chnam, double * val, double * error, 
-  	       double * bnd1, double * bnd2, integer * ivarbl, ftnlen strln);
+  //void Minuit::mnpout(integer * num, char * chnam, double * val, double * error, 
+  //	       double * bnd1, double * bnd2, integer * ivarbl, ftnlen strln);
+  void TMinuit::mnpout(Int_t num, TString& chnam, Double_t& val, Double_t& error, 
+  	       Double_t& bnd1, Double_t& bnd2, Int_t& ivarbl);
   //! Get current status of minimization
-  void mnstat_(double * fmin, double * fedm, double * errdef, integer * npari, 
-	       integer * nparx, integer * istat);
+  //void Minuit::mnstat(double * fmin, double * fedm, double * errdef, integer * npari, 
+  //	       integer * nparx, integer * istat);
+  void TMinuit::mnstat(Double_t& fmin, Double_t& fedm, Double_t& errdef, Int_t& npari, 
+	       Int_t& nparx, Int_t& istat);
   //! Specify a title for a problem
-  void mnseti_(char * ctitle, ftnlen strln);
+  //void Minuit::mnseti(char * ctitle, ftnlen strln);
+  void TMinuit::mnset(TString& ctitle,);
   //! Define a parameter, assigning values and bounds from variables
-  void mnpars_(char * chstr, integer * icondn, ftnlen strln);
-  //! Get current value of covariance matrix
-  void mnemat_(double * emat, integer * ndim);
+  //void Minuit::mnpars(char * chstr, integer * icondn, ftnlen strln);
+  void TMinuit::mnpars(TString& chstr, Int_t& icondn);
+//! Get current value of covariance matrix
+  //void Minuit::mnemat(double * emat, integer * ndim);
+  void TMinuit::mnemat(Double_t* emat, Int_t ndim);
   //! Access current parameter errors
-  void mnerrs_(integer * num, double * eplus, double * eminus, double * eparab, 
-	       double * globcc);
+  //void Minuit::mnerrs(integer * num, double * eplus, double * eminus, double * eparab, 
+	       //double * globcc);
+  void TMinuit::mnerrs(Int_t num, Double_t& eplus, Double_t& eminus, Double_t& eparab, 
+	       Double_t& globcc);
   //! Find a function contour with the MNContour method
-  void mncont_(mfcn * fcn, integer * num1, integer * num2, integer * npt, double * xpt, 
-	       double * ypt, integer * nfound, void * futil);
+  //void Minuit::mncont(mfcn * fcn, integer * num1, integer * num2, integer * npt, double * xpt, 
+//	       double * ypt, integer * nfound, void * futil);
+  void TMinuit::mncont(Int_t num1, Int_t num2, Int_t npt, Double_t* xpt, 
+	       Double_t* ypt, Int_t& nfound);
   //! Utility function used by Minuit: interactive or batch mode
-  logical intrac_(double *);
-}
+  logical TMinuit::intrac_(Double_t*);
+//}
 #endif // SWIG
 
 #endif // optimizers_MINUIT_H
