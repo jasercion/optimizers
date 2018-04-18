@@ -145,38 +145,38 @@ namespace optimizers {
 	       Int_t& ierflg);
   //! Set I/O unit numbers
   //void Minuit::mintio(const integer * iread, const integer * iwrite, const integer * isave);
-  //void Minuit::mintio(const integer * iread, const integer * iwrite, const integer * isave);
+  void TMinuit::mintio(const integer * iread, const integer * iwrite, const integer * isave);
   //! Get current value of a parameter
   //void Minuit::mnpout(integer * num, char * chnam, double * val, double * error, 
   //	       double * bnd1, double * bnd2, integer * ivarbl, ftnlen strln);
-  void TMinuit::mnpout(Int_t num, TString& chnam, Double_t& val, Double_t& error, 
-  	       Double_t& bnd1, Double_t& bnd2, Int_t& ivarbl);
+  void Minuit::mnpout(integer * num, char * chnam, double * val, double * error, 
+  	       double * bnd1, double * bnd2, integer * ivarbl, ftnlen strln);
   //! Get current status of minimization
   //void Minuit::mnstat(double * fmin, double * fedm, double * errdef, integer * npari, 
   //	       integer * nparx, integer * istat);
-  void TMinuit::mnstat(Double_t& fmin, Double_t& fedm, Double_t& errdef, Int_t& npari, 
-	       Int_t& nparx, Int_t& istat);
+  void Minuit::mnstat(double * fmin, double * fedm, double * errdef, integer * npari, 
+	       integer * nparx, integer * istat);
   //! Specify a title for a problem
   //void Minuit::mnseti(char * ctitle, ftnlen strln);
-  void TMinuit::mnset(TString& ctitle,);
+  void Minuit::mnseti(char * ctitle, ftnlen strln);
   //! Define a parameter, assigning values and bounds from variables
   //void Minuit::mnpars(char * chstr, integer * icondn, ftnlen strln);
-  void TMinuit::mnpars(TString& chstr, Int_t& icondn);
+  void Minuit::mnpars(char * chstr, integer * icondn, ftnlen strln);
 //! Get current value of covariance matrix
   //void Minuit::mnemat(double * emat, integer * ndim);
-  void TMinuit::mnemat(Double_t* emat, Int_t ndim);
+  void Minuit::mnemat(double * emat, integer * ndim);
   //! Access current parameter errors
   //void Minuit::mnerrs(integer * num, double * eplus, double * eminus, double * eparab, 
 	       //double * globcc);
-  void TMinuit::mnerrs(Int_t num, Double_t& eplus, Double_t& eminus, Double_t& eparab, 
-	       Double_t& globcc);
+  void Minuit::mnerrs(integer * num, double * eplus, double * eminus, double * eparab, 
+	       double * globcc);
   //! Find a function contour with the MNContour method
   //void Minuit::mncont(mfcn * fcn, integer * num1, integer * num2, integer * npt, double * xpt, 
 //	       double * ypt, integer * nfound, void * futil);
-  void TMinuit::mncont(Int_t num1, Int_t num2, Int_t npt, Double_t* xpt, 
-	       Double_t* ypt, Int_t& nfound);
+  void Minuit::mncont(mfcn * fcn, integer * num1, integer * num2, integer * npt, double * xpt, 
+	       double * ypt, integer * nfound, void * futil);
   //! Utility function used by Minuit: interactive or batch mode
-  logical TMinuit::intrac_(Double_t*);
+  logical Minuit::intrac_(double *);
 //}
 #endif // SWIG
 
