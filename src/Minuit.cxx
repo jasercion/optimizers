@@ -70,7 +70,7 @@ namespace optimizers {
       mintio_(&i5, &i6, &i7);
     }
     std::ostringstream pline;
-    pline << "SET PRINT " << minuitVerbose;
+    pline << "SET PRI " << minuitVerbose;
     doCmd(pline.str()); // Set verbosity of Minuit
     doCmd("SET NOWARN");
 
