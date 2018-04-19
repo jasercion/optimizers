@@ -58,9 +58,7 @@ namespace optimizers {
   int Minuit::minimize(int verbose, double tol, int tolType, bool doHesse) {
 
     typedef std::vector<Parameter>::iterator pptr;
-    //DIAGNOSTIC
-    verbose++;
-    //END DIAGNOSTIC	  
+
     std::vector<Parameter> params;
     m_stat->getFreeParams(params);
     numPars = params.size();
