@@ -4765,16 +4765,13 @@ GIVES UP'/)", 0 };
     s_copy(mn7tit_1.cword, comand, (ftnlen)20, lk);
 /*              get upper case */
     i__1 = lk;
-/* BEGIN DIAGNOSTIC CHANGES (INDEXING) */	
-    for (icol = 0; icol <= i__1; ++icol) {
-	for (let = 0; let <= 26; ++let) {
+    for (icol = 1; icol <= i__1; ++icol) {
+	for (let = 1; let <= 26; ++let) {
 	    if (*(unsigned char *)&mn7tit_1.cword[icol - 1] == *(unsigned 
 		    char *)&clower[let - 1]) {
 		*(unsigned char *)&mn7tit_1.cword[icol - 1] = *(unsigned char 
 			*)&cupper[let - 1];
 	    }
-/* END DIAGNOSTIC CHANGES (INDEXING) */
-		
 /* L15: */
 	}
 /* L16: */
