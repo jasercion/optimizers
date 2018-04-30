@@ -1,17 +1,113 @@
-/* dpptri-blas.f -- translated by f2c (version 20020621).
-   You must link the resulting object file with the libraries:
-	-lf2c -lm   (in that order)
+/* dpptri-blas.f -- translated by f2c (version 20160102).
+   You must link the resulting object file with libf2c:
+	on Microsoft Windows system, link with libf2c.lib;
+	on Linux or Unix systems, link with .../path/to/libf2c.a -lm
+	or, if you install libf2c.a in a standard place, with -lf2c -lm
+	-- in that order, at the end of the command line, as in
+		cc *.o -lf2c -lm
+	Source for libf2c is in /netlib/f2c/libf2c.zip, e.g.,
+
+		http://www.netlib.org/f2c/libf2c.zip
 */
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-#include "f2c/f2c.h"
+#include "f2c.h"
 
 /* BLAS REQUIRED BY LAPACK ROUTINE:  dpptri */
 /* ----------------------------------------------------------- */
 /* Note: Link to BLAS optimized for your system, if available. */
 /* ----------------------------------------------------------- */
+/* $$$      double precision function ddot(n,dx,incx,dy,incy) */
+/* $$$c */
+/* $$$c     forms the dot product of two vectors. */
+/* $$$c     uses unrolled loops for increments equal to one. */
+/* $$$c     jack dongarra, linpack, 3/11/78. */
+/* $$$c     modified 12/3/93, array(1) declarations changed to array(*) */
+/* $$$c */
+/* $$$      double precision dx(*),dy(*),dtemp */
+/* $$$      integer i,incx,incy,ix,iy,m,mp1,n */
+/* $$$c */
+/* $$$      ddot = 0.0d0 */
+/* $$$      dtemp = 0.0d0 */
+/* $$$      if(n.le.0)return */
+/* $$$      if(incx.eq.1.and.incy.eq.1)go to 20 */
+/* $$$c */
+/* $$$c        code for unequal increments or equal increments */
+/* $$$c          not equal to 1 */
+/* $$$c */
+/* $$$      ix = 1 */
+/* $$$      iy = 1 */
+/* $$$      if(incx.lt.0)ix = (-n+1)*incx + 1 */
+/* $$$      if(incy.lt.0)iy = (-n+1)*incy + 1 */
+/* $$$      do 10 i = 1,n */
+/* $$$        dtemp = dtemp + dx(ix)*dy(iy) */
+/* $$$        ix = ix + incx */
+/* $$$        iy = iy + incy */
+/* $$$   10 continue */
+/* $$$      ddot = dtemp */
+/* $$$      return */
+/* $$$c */
+/* $$$c        code for both increments equal to 1 */
+/* $$$c */
+/* $$$c */
+/* $$$c        clean-up loop */
+/* $$$c */
+/* $$$   20 m = mod(n,5) */
+/* $$$      if( m .eq. 0 ) go to 40 */
+/* $$$      do 30 i = 1,m */
+/* $$$        dtemp = dtemp + dx(i)*dy(i) */
+/* $$$   30 continue */
+/* $$$      if( n .lt. 5 ) go to 60 */
+/* $$$   40 mp1 = m + 1 */
+/* $$$      do 50 i = mp1,n,5 */
+/* $$$        dtemp = dtemp + dx(i)*dy(i) + dx(i + 1)*dy(i + 1) + */
+/* $$$     *   dx(i + 2)*dy(i + 2) + dx(i + 3)*dy(i + 3) + dx(i + 4)*dy(i + 4) */
+/* $$$   50 continue */
+/* $$$   60 ddot = dtemp */
+/* $$$      return */
+/* $$$      end */
+/* $$$      subroutine  dscal(n,da,dx,incx) */
+/* $$$c */
+/* $$$c     scales a vector by a constant. */
+/* $$$c     uses unrolled loops for increment equal to one. */
+/* $$$c     jack dongarra, linpack, 3/11/78. */
+/* $$$c     modified 3/93 to return if incx .le. 0. */
+/* $$$c     modified 12/3/93, array(1) declarations changed to array(*) */
+/* $$$c */
+/* $$$      double precision da,dx(*) */
+/* $$$      integer i,incx,m,mp1,n,nincx */
+/* $$$c */
+/* $$$      if( n.le.0 .or. incx.le.0 )return */
+/* $$$      if(incx.eq.1)go to 20 */
+/* $$$c */
+/* $$$c        code for increment not equal to 1 */
+/* $$$c */
+/* $$$      nincx = n*incx */
+/* $$$      do 10 i = 1,nincx,incx */
+/* $$$        dx(i) = da*dx(i) */
+/* $$$   10 continue */
+/* $$$      return */
+/* $$$c */
+/* $$$c        code for increment equal to 1 */
+/* $$$c */
+/* $$$c */
+/* $$$c        clean-up loop */
+/* $$$c */
+/* $$$   20 m = mod(n,5) */
+/* $$$      if( m .eq. 0 ) go to 40 */
+/* $$$      do 30 i = 1,m */
+/* $$$        dx(i) = da*dx(i) */
+/* $$$   30 continue */
+/* $$$      if( n .lt. 5 ) return */
+/* $$$   40 mp1 = m + 1 */
+/* $$$      do 50 i = mp1,n,5 */
+/* $$$        dx(i) = da*dx(i) */
+/* $$$        dx(i + 1) = da*dx(i + 1) */
+/* $$$        dx(i + 2) = da*dx(i + 2) */
+/* $$$        dx(i + 3) = da*dx(i + 3) */
+/* $$$        dx(i + 4) = da*dx(i + 4) */
+/* $$$   50 continue */
+/* $$$      return */
+/* $$$      end */
 /* Subroutine */ int dtpmv_(char *uplo, char *trans, char *diag, integer *n, 
 	doublereal *ap, doublereal *x, integer *incx, ftnlen uplo_len, ftnlen 
 	trans_len, ftnlen diag_len)
@@ -576,6 +672,3 @@ extern "C" {
 
 } /* dspr_ */
 
-#ifdef __cplusplus
-	}
-#endif
