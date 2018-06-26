@@ -10,7 +10,10 @@
 		http://www.netlib.org/f2c/libf2c.zip
 */
 
-#include "f2c.h"
+#ifdef __cplusplus
+extern "C" {
+#endif
+#include "f2c/f2c.h"
 
 /* Common Block Declarations */
 
@@ -12831,3 +12834,6 @@ L200:
     return 0;
 } /* stand_ */
 
+#ifdef __cplusplus
+	}
+#endif
