@@ -10,7 +10,10 @@
 		http://www.netlib.org/f2c/libf2c.zip
 */
 
-#include "f2c.h"
+#ifdef __cplusplus
+extern "C" {
+#endif
+#include "f2c/f2c.h"
 
 /* BLAS REQUIRED BY LAPACK ROUTINE:  dpptri */
 /* ----------------------------------------------------------- */
@@ -672,3 +675,6 @@
 
 } /* dspr_ */
 
+#ifdef __cplusplus
+	}
+#endif	
