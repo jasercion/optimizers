@@ -10,7 +10,10 @@
 		http://www.netlib.org/f2c/libf2c.zip
 */
 
-#include "f2c.h"
+#ifdef __cplusplus
+extern "C" {
+#endif
+#include "f2c/f2c.h"
 
 /* Table of constant values */
 
@@ -4587,3 +4590,6 @@ logical stopx_(integer *idummy)
     return ret_val;
 } /* stopx_ */
 
+#ifdef __cplusplus
+	}
+#endif
