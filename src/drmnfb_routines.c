@@ -10,7 +10,10 @@
 		http://www.netlib.org/f2c/libf2c.zip
 */
 
-#include "f2c.h"
+#ifdef __cplusplus
+extern "C" {
+#endif
+#include "f2c/f2c.h"
 
 /* Table of constant values */
 
@@ -614,3 +617,6 @@ L999:
 /*  ***  LAST LINE OF DS3GRD FOLLOWS  *** */
 } /* ds3grd_ */
 
+#ifdef __cplusplus
+	}
+#endif
