@@ -1,12 +1,16 @@
-/*  -- translated by f2c (version 20020621).
-   You must link the resulting object file with the libraries:
-	-lf2c -lm   (in that order)
+/* drmngb_routines.f -- translated by f2c (version 20160102).
+   You must link the resulting object file with libf2c:
+	on Microsoft Windows system, link with libf2c.lib;
+	on Linux or Unix systems, link with .../path/to/libf2c.a -lm
+	or, if you install libf2c.a in a standard place, with -lf2c -lm
+	-- in that order, at the end of the command line, as in
+		cc *.o -lf2c -lm
+	Source for libf2c is in /netlib/f2c/libf2c.zip, e.g.,
+
+		http://www.netlib.org/f2c/libf2c.zip
 */
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-#include "f2c/f2c.h"
+#include "f2c.h"
 
 /* Table of constant values */
 
@@ -1369,51 +1373,52 @@ L999:
 {
     /* Initialized data */
 
-    static char model1[4*6+1] = "                  G   S ";
-    static char model2[4*6+1] = " G   S  G-S S-G -S-G-G-S";
+    static char model1[4*6] = "    " "    " "    " "    " "  G " "  S ";
+    static char model2[4*6] = " G  " " S  " "G-S " "S-G " "-S-G" "-G-S";
 
     /* Format strings */
-    static char fmt_30[] = "(/\002   IT   NF\002,6x,\002F\002,7x,\002RELD\
-F\002,3x,\002PRELDF\002,3x,\002RELDX\002,2x,\002MODEL  STPPAR\002)";
-    static char fmt_40[] = "(/\002    IT   NF\002,7x,\002F\002,8x,\002RELD\
-F\002,4x,\002PRELDF\002,4x,\002RELDX\002,3x,\002STPPAR\002)";
+    static char fmt_30[] = "(/\002   IT   NF\002,6x,\002F\002,7x,\002RELD"
+	    "F\002,3x,\002PRELDF\002,3x,\002RELDX\002,2x,\002MODEL  STPPAR"
+	    "\002)";
+    static char fmt_40[] = "(/\002    IT   NF\002,7x,\002F\002,8x,\002RELD"
+	    "F\002,4x,\002PRELDF\002,4x,\002RELDX\002,3x,\002STPPAR\002)";
     static char fmt_100[] = "(i6,i5,d10.3,2d9.2,d8.1,a3,a4,2d8.1,d9.2)";
     static char fmt_110[] = "(i6,i5,d11.3,2d10.2,3d9.1,d10.2)";
-    static char fmt_70[] = "(/\002    IT   NF\002,6x,\002F\002,7x,\002RELD\
-F\002,3x,\002PRELDF\002,3x,\002RELDX\002,2x,\002MODEL  STPPAR\002,2x,\002D*S\
-TEP\002,2x,\002NPRELDF\002)";
-    static char fmt_80[] = "(/\002    IT   NF\002,7x,\002F\002,8x,\002RELD\
-F\002,4x,\002PRELDF\002,4x,\002RELDX\002,3x,\002STPPAR\002,3x,\002D*STEP\002\
-,3x,\002NPRELDF\002)";
+    static char fmt_70[] = "(/\002    IT   NF\002,6x,\002F\002,7x,\002RELD"
+	    "F\002,3x,\002PRELDF\002,3x,\002RELDX\002,2x,\002MODEL  STPPAR"
+	    "\002,2x,\002D*STEP\002,2x,\002NPRELDF\002)";
+    static char fmt_80[] = "(/\002    IT   NF\002,7x,\002F\002,8x,\002RELD"
+	    "F\002,4x,\002PRELDF\002,4x,\002RELDX\002,3x,\002STPPAR\002,3x"
+	    ",\002D*STEP\002,3x,\002NPRELDF\002)";
     static char fmt_140[] = "(/\002 ***** X-CONVERGENCE *****\002)";
-    static char fmt_160[] = "(/\002 ***** RELATIVE FUNCTION CONVERGENCE **\
-***\002)";
-    static char fmt_180[] = "(/\002 ***** X- AND RELATIVE FUNCTION CONVERGEN\
-CE *****\002)";
-    static char fmt_200[] = "(/\002 ***** ABSOLUTE FUNCTION CONVERGENCE **\
-***\002)";
+    static char fmt_160[] = "(/\002 ***** RELATIVE FUNCTION CONVERGENCE **"
+	    "***\002)";
+    static char fmt_180[] = "(/\002 ***** X- AND RELATIVE FUNCTION CONVERGEN"
+	    "CE *****\002)";
+    static char fmt_200[] = "(/\002 ***** ABSOLUTE FUNCTION CONVERGENCE **"
+	    "***\002)";
     static char fmt_220[] = "(/\002 ***** SINGULAR CONVERGENCE *****\002)";
     static char fmt_240[] = "(/\002 ***** FALSE CONVERGENCE *****\002)";
-    static char fmt_260[] = "(/\002 ***** FUNCTION EVALUATION LIMIT *****\
-\002)";
+    static char fmt_260[] = "(/\002 ***** FUNCTION EVALUATION LIMIT *****"
+	    "\002)";
     static char fmt_280[] = "(/\002 ***** ITERATION LIMIT *****\002)";
     static char fmt_300[] = "(/\002 ***** STOPX *****\002)";
-    static char fmt_320[] = "(/\002 ***** INITIAL F(X) CANNOT BE COMPUTED **\
-***\002)";
+    static char fmt_320[] = "(/\002 ***** INITIAL F(X) CANNOT BE COMPUTED **"
+	    "***\002)";
     static char fmt_340[] = "(/\002 ***** BAD PARAMETERS TO ASSESS *****\002)"
 	    ;
-    static char fmt_360[] = "(/\002 ***** GRADIENT COULD NOT BE COMPUTED ***\
-**\002)";
+    static char fmt_360[] = "(/\002 ***** GRADIENT COULD NOT BE COMPUTED ***"
+	    "**\002)";
     static char fmt_380[] = "(/\002 ***** IV(1) =\002,i5,\002 *****\002)";
-    static char fmt_400[] = "(/\002     I     INITIAL X(I)\002,8x,\002D(I\
-)\002//(1x,i5,d17.6,d14.3))";
+    static char fmt_400[] = "(/\002     I     INITIAL X(I)\002,8x,\002D(I"
+	    ")\002//(1x,i5,d17.6,d14.3))";
     static char fmt_410[] = "(/\002     0\002,i5,d10.3)";
     static char fmt_420[] = "(/\002     0\002,i5,d11.3)";
-    static char fmt_450[] = "(/\002 FUNCTION\002,d17.6,\002   RELDX\002,d17.\
-3/\002 FUNC. EVALS\002,i8,9x,\002GRAD. EVALS\002,i8/\002 PRELDF\002,d16.3,6x,\
-\002NPRELDF\002,d15.3)";
-    static char fmt_470[] = "(/\002     I      FINAL X(I)\002,8x,\002D(I)\
-\002,10x,\002G(I)\002/)";
+    static char fmt_450[] = "(/\002 FUNCTION\002,d17.6,\002   RELDX\002,d17."
+	    "3/\002 FUNC. EVALS\002,i8,9x,\002GRAD. EVALS\002,i8/\002 PRELD"
+	    "F\002,d16.3,6x,\002NPRELDF\002,d15.3)";
+    static char fmt_470[] = "(/\002     I      FINAL X(I)\002,8x,\002D(I)"
+	    "\002,10x,\002G(I)\002/)";
     static char fmt_490[] = "(1x,i5,d16.6,2d14.3)";
     static char fmt_510[] = "(/\002 INCONSISTENT DIMENSIONS\002)";
 
@@ -1422,7 +1427,7 @@ CE *****\002)";
     doublereal d__1, d__2;
 
     /* Builtin functions */
-    integer s_wsfe(cilist *), e_wsfe(), do_fio(integer *, char *, ftnlen);
+    integer s_wsfe(cilist *), e_wsfe(void), do_fio(integer *, char *, ftnlen);
 
     /* Local variables */
     static integer i__, m, nf, ng, ol, pu, iv1, alg;
@@ -2452,58 +2457,63 @@ L50:
     static doublereal machep = -1.;
     static doublereal tiny = 1.;
     static doublereal zero = 0.;
-    static char vn[4*2*34+1] = "EPSLON..PHMNFC..PHMXFC..DECFAC..INCFAC..RDFC\
-MN..RDFCMX..TUNER1..TUNER2..TUNER3..TUNER4..TUNER5..AFCTOL..RFCTOL..XCTOL...\
-XFTOL...LMAX0...LMAXS...SCTOL...DINIT...DTINIT..D0INIT..DFAC....DLTFDC..DLTF\
-DJ..DELTA0..FUZZ....RLIMIT..COSMIN..HUBERC..RSPTOL..SIGMIN..ETA0....BIAS....";
+    static char vn[4*2*34] = "EPSL" "ON.." "PHMN" "FC.." "PHMX" "FC.." "DECF" 
+	    "AC.." "INCF" "AC.." "RDFC" "MN.." "RDFC" "MX.." "TUNE" "R1.." 
+	    "TUNE" "R2.." "TUNE" "R3.." "TUNE" "R4.." "TUNE" "R5.." "AFCT" 
+	    "OL.." "RFCT" "OL.." "XCTO" "L..." "XFTO" "L..." "LMAX" "0..." 
+	    "LMAX" "S..." "SCTO" "L..." "DINI" "T..." "DTIN" "IT.." "D0IN" 
+	    "IT.." "DFAC" "...." "DLTF" "DC.." "DLTF" "DJ.." "DELT" "A0.." 
+	    "FUZZ" "...." "RLIM" "IT.." "COSM" "IN.." "HUBE" "RC.." "RSPT" 
+	    "OL.." "SIGM" "IN.." "ETA0" "...." "BIAS" "....";
     static doublereal vm[34] = { .001,-.99,.001,.01,1.2,.01,1.2,0.,0.,.001,
 	    -1.,0.0,0.,0.0,0.,0.,0.0,0.0,0.,-10.,0.,0.,0.,0.0,0.0,0.0,1.01,
 	    1e10,0.0,0.,0.,0.,0.0,0. };
     static doublereal vx[34] = { .9,-.001,10.,.8,100.,.8,100.,.5,.5,1.,1.,0.0,
 	    0.0,.1,1.,1.,0.0,0.0,1.,0.0,0.0,0.0,1.,1.,1.,1.,1e10,0.0,1.,0.0,
 	    1.,1.,1.,1. };
-    static char varnm[1*2+1] = "PP";
-    static char sh[1*2+1] = "SH";
-    static char cngd[4*3+1] = "---CHANGED V";
-    static char dflt[4*3+1] = "NONDEFAULT V";
+    static char varnm[1*2] = "P" "P";
+    static char sh[1*2] = "S" "H";
+    static char cngd[4*3] = "---C" "HANG" "ED V";
+    static char dflt[4*3] = "NOND" "EFAU" "LT V";
     static integer ijmp = 33;
     static integer jlim[4] = { 0,24,0,24 };
     static integer ndflt[4] = { 32,25,32,25 };
     static integer miniv[4] = { 82,59,103,103 };
 
     /* Format strings */
-    static char fmt_10[] = "(/\002 THE FIRST PARAMETER TO DIVSET SHOULD B\
-E\002,i3,\002 RATHER THAN\002,i3)";
+    static char fmt_10[] = "(/\002 THE FIRST PARAMETER TO DIVSET SHOULD B"
+	    "E\002,i3,\002 RATHER THAN\002,i3)";
     static char fmt_40[] = "(/\002 /// BAD\002,a1,\002 =\002,i5)";
-    static char fmt_70[] = "(/\002 /// \002,1a1,\002 CHANGED FROM \002,i5\
-,\002 TO \002,i5)";
-    static char fmt_90[] = "(/\002 ///  IV(1) =\002,i5,\002 SHOULD BE BETWEE\
-N 0 AND 14.\002)";
-    static char fmt_130[] = "(/\002 ///  \002,2a4,\002.. V(\002,i2,\002) \
-=\002,d11.3,\002 SHOULD\002,\002 BE BETWEEN\002,d11.3,\002 AND\002,d11.3)";
-    static char fmt_160[] = "(/\002 IV(NVDFLT) =\002,i5,\002 RATHER THAN \
-\002,i5)";
-    static char fmt_180[] = "(/\002 ///  D(\002,i3,\002) =\002,d11.3,\002 SH\
-OULD BE POSITIVE\002)";
-    static char fmt_220[] = "(/\002 NONDEFAULT VALUES....\002/\002 INIT\002,\
-a1,\002..... IV(25) =\002,i3)";
+    static char fmt_70[] = "(/\002 /// \002,1a1,\002 CHANGED FROM \002,i5"
+	    ",\002 TO \002,i5)";
+    static char fmt_90[] = "(/\002 ///  IV(1) =\002,i5,\002 SHOULD BE BETWEE"
+	    "N 0 AND 14.\002)";
+    static char fmt_130[] = "(/\002 ///  \002,2a4,\002.. V(\002,i2,\002) "
+	    "=\002,d11.3,\002 SHOULD\002,\002 BE BETWEEN\002,d11.3,\002 AN"
+	    "D\002,d11.3)";
+    static char fmt_160[] = "(/\002 IV(NVDFLT) =\002,i5,\002 RATHER THAN "
+	    "\002,i5)";
+    static char fmt_180[] = "(/\002 ///  D(\002,i3,\002) =\002,d11.3,\002 SH"
+	    "OULD BE POSITIVE\002)";
+    static char fmt_220[] = "(/\002 NONDEFAULT VALUES....\002/\002 INIT\002,"
+	    "a1,\002..... IV(25) =\002,i3)";
     static char fmt_260[] = "(/\002 \002,3a4,\002ALUES....\002/)";
     static char fmt_240[] = "(\002 DTYPE..... IV(16) =\002,i3)";
     static char fmt_270[] = "(1x,2a4,\002.. V(\002,i2,\002) =\002,d15.7)";
-    static char fmt_310[] = "(/\002 /// LIV =\002,i5,\002 MUST BE AT LEAS\
-T\002,i5)";
-    static char fmt_330[] = "(/\002 /// LV =\002,i5,\002 MUST BE AT LEAST\
-\002,i5)";
-    static char fmt_350[] = "(/\002 /// ALG =\002,i5,\002 MUST BE 1 2, 3, OR\
- 4\002)";
-    static char fmt_370[] = "(/\002 /// LIV =\002,i5,\002 MUST BE AT LEAS\
-T\002,i5,\002 TO COMPUTE TRUE MIN. LIV AND MIN. LV\002)";
+    static char fmt_310[] = "(/\002 /// LIV =\002,i5,\002 MUST BE AT LEAS"
+	    "T\002,i5)";
+    static char fmt_330[] = "(/\002 /// LV =\002,i5,\002 MUST BE AT LEAST"
+	    "\002,i5)";
+    static char fmt_350[] = "(/\002 /// ALG =\002,i5,\002 MUST BE 1 2, 3, OR"
+	    " 4\002)";
+    static char fmt_370[] = "(/\002 /// LIV =\002,i5,\002 MUST BE AT LEAS"
+	    "T\002,i5,\002 TO COMPUTE TRUE MIN. LIV AND MIN. LV\002)";
 
     /* System generated locals */
     integer i__1, i__2;
 
     /* Builtin functions */
-    integer s_wsfe(cilist *), do_fio(integer *, char *, ftnlen), e_wsfe();
+    integer s_wsfe(cilist *), do_fio(integer *, char *, ftnlen), e_wsfe(void);
     /* Subroutine */ int s_copy(char *, char *, ftnlen, ftnlen);
 
     /* Local variables */
@@ -4577,6 +4587,3 @@ logical stopx_(integer *idummy)
     return ret_val;
 } /* stopx_ */
 
-#ifdef __cplusplus
-	}
-#endif
